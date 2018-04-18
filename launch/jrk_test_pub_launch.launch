@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<launch>
+	<node pkg="jrk_test_pub" type="jrk_test_pub.py" name="JRK_test_publisher" output="screen"/>
+<!--
+	<node pkg="jrk_subscribe" type="jrk_subscribe.py" name="JRK_subscriber" output="screen"/>
+-->
+</launch>
