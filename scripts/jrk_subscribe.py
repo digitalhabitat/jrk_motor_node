@@ -6,7 +6,7 @@ from ackermann_msgs.msg import AckermannDrive
 
 import serial
 import time
-ser = serial.Serial( "/dev/ttyACM0", 9600)
+ser = serial.Serial( "/dev/jrk", 9600)
 #ser = serial.Serial( "/dev/ttyACM0", 115200)
 print("connected to: " + ser.portstr)
 
