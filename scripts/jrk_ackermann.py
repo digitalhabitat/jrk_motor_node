@@ -62,19 +62,17 @@ class JrkG2Serial(object):
         b = self.get_variables(0x04, 2)
         return b[0] + 256 * b[1]
 
+    def handle_jrk_targets(AckermannDrive):#function name*
+        #target=int(AckermannDrive.steering_angle)*2353+2014
+        #print('target: %s' % target)
+        #lowByte = (target & ord("\x1F")) | ord("\xC0")
+        #highByte = (target >> 5) & ord("\x7F")
+        #print("about to write", lowByte, highByte)
+        #ser.write(chr(lowByte))
+        #ser.write(chr(highByte))    
 
-
-def handle_jrk_targets(AckermannDrive):#function name*
-    #target=int(AckermannDrive.steering_angle)*2353+2014
-    #print('target: %s' % target)
-    #lowByte = (target & ord("\x1F")) | ord("\xC0")
-    #highByte = (target >> 5) & ord("\x7F")
-    #print("about to write", lowByte, highByte)
-    #ser.write(chr(lowByte))
-    #ser.write(chr(highByte))    
-
-def shutdown(self):
-    rospy.logwarn("Shutting down")
+    def shutdown(self):
+        rospy.logwarn("Shutting down")
 
 if __name__ == "__main__":
     try:
