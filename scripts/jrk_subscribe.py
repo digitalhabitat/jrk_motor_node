@@ -14,13 +14,13 @@ class Node:
 
         # Parameters
 	self.ACKERMANN_COMMAND = rospy.get_param("~ackermann_command", "ackermann")
-        self.DEV = rospy.get_param("~dev", "/dev/ttyACM1")
+        self.DEV = rospy.get_param("~dev", "/dev/ttyACM0")
         self.BAUD = int(rospy.get_param("~baud", 9600))
 
         ser = serial.Serial( self.DEV, self.BAUD)
         #ser = serial.Serial( "/dev/ttyACM0", 115200)
         print("connected to: " + ser.portstr)
-        rospy.init_node('Starting jrk_node')
+        rospy.init_node('jrk_node')
         rospy.on_shutdown(self.shutdown)
 
         # Subscriber
@@ -32,6 +32,7 @@ class Node:
 
 
     def handle_jrk_targets(AckermannDrive):#function name*
+        rospy.loginfo("messaged recv")
         target=-1*int(AckermannDrive.steering_angle*2500+2048)
         rospy.loginfo("target: %d", target)
         print('target: %s' % target)

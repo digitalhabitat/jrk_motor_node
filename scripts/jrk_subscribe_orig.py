@@ -7,12 +7,19 @@ from ackermann_msgs.msg import AckermannDrive
 import serial
 import time
 
+# need to call jrk2cmd.. persistent name udev rules not wokring
+import os 
+
+cmd_port = os.popen('jrk2cmd --cmd-port').read()
+print(cmd_port.rstrip("\n"))
+rospy.loginfo("jrk cmd_port = %s", cmd_port)
+
 # Parameters
-DEV = rospy.get_param("~dev", "/dev/ttyACM1")
+DEV = rospy.get_param("~dev", "/dev/ttyACM0")
 BAUD = int(rospy.get_param("~baud", 9600))
 ACKERMANN_COMMAND = rospy.get_param("~ackeramnn_command","ackermann")
 
-ser = serial.Serial( DEV, BAUD)
+ser = serial.Serial( cmd_port.rstrip("\n") , BAUD)
 #ser = serial.Serial( "/dev/ttyACM1", 9600)
 #ser = serial.Serial( "/dev/ttyACM0", 115200)
 print("connected to: " + ser.portstr)
