@@ -63,13 +63,14 @@ class JrkG2Serial(object):
         return b[0] + 256 * b[1]
 
     def handle_jrk_targets(AckermannDrive):#function name*
-        #target=int(AckermannDrive.steering_angle)*2353+2014
+        target = float(int(AckermannDrive.steering_angle)*2353+2014)
         #print('target: %s' % target)
         #lowByte = (target & ord("\x1F")) | ord("\xC0")
         #highByte = (target >> 5) & ord("\x7F")
         #print("about to write", lowByte, highByte)
         #ser.write(chr(lowByte))
-        #ser.write(chr(highByte))    
+        #ser.write(chr(highByte)) 
+        set_target(self, target):   
 
     def shutdown(self):
         rospy.logwarn("Shutting down")
