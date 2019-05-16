@@ -13,7 +13,8 @@ class Node:
     def __init__(self):
 
         # Parameters
-        self.DEV = rospy.get_param("~dev", "/dev/ttyAMC1")
+	self.ACKERMANN_COMMAND = rospy.get_param("~ackermann_command", "ackermann")
+        self.DEV = rospy.get_param("~dev", "/dev/ttyACM1")
         self.BAUD = int(rospy.get_param("~baud", 9600))
 
         ser = serial.Serial( self.DEV, self.BAUD)
@@ -22,12 +23,11 @@ class Node:
         rospy.init_node('Starting jrk_node')
         rospy.on_shutdown(self.shutdown)
 
-        # Subscribers and Publishers
-        self.joy_subscriber = rospy.Subscriber(self.JOY_MSGS, Joy, self.joy_callback)
-        self.ackermann_publisher = rospy.Publisher(self.ACKERMANN_COMMAND, AckermannDrive, queue_size="2")
+        # Subscriber
+        self.ackermann_subscriber = rospy.Publisher(self.ACKERMANN_COMMAND, AckermannDrive, queue_size="2")
        
     def run(self):
-        rospy.loginfo("starting joy_teleop_node")
+        rospy.loginfo("running jrk_node")
         rospy.spin()
 
 
