@@ -12,7 +12,8 @@ import time
 import os 
 
 cmd_port = os.popen('jrk2cmd --cmd-port').read()
-print(cmd_port.rstrip("\n"))
+print(cmd_port)
+
 rospy.loginfo("jrk cmd_port = %s ignore parameter dev", cmd_port)
 
 # Parameters
@@ -23,7 +24,7 @@ ACKERMANN_COMMAND = rospy.get_param("~ackeramnn_command","ackermann")
 ser = serial.Serial( cmd_port.rstrip("\n") , BAUD)
 #ser = serial.Serial( "/dev/ttyACM1", 9600)
 #ser = serial.Serial( "/dev/ttyACM0", 115200)
-print("connected to: " + ser.portstr)
+print("jrk connected to: " + ser.portstr)
 rospy.loginfo("connected: %s", ser.portstr)
 
 def handle_jrk_targets(AckermannDrive):
@@ -31,10 +32,10 @@ def handle_jrk_targets(AckermannDrive):
   # positive steering angle should turn left
   target=int(AckermannDrive.steering_angle*2500+2048)
   rospy.logdebug("target = %d",target)
-  print 'target: %s' % target
+  #print 'target: %s' % target
   lowByte = (target & ord("\x1F")) | ord("\xC0")
   highByte = (target >> 5) & ord("\x7F")
-  print("about to write", lowByte, highByte)
+  #print("about to write", lowByte, highByte)
   ser.write(chr(lowByte))
   ser.write(chr(highByte))
 
