@@ -30,7 +30,7 @@ def handle_jrk_targets(AckermannDrive):
 
   # positive steering angle should turn left
   target=int(AckermannDrive.steering_angle*2500+2048)
-  rospy.loginfo("target = %d",target)
+  rospy.logdebug("target = %d",target)
   print 'target: %s' % target
   lowByte = (target & ord("\x1F")) | ord("\xC0")
   highByte = (target >> 5) & ord("\x7F")
